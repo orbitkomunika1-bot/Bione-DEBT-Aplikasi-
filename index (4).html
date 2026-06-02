@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIONE DEBT MANAGER - Professional & Futuristic Edition 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    },
+                    colors: {
+                        primary: { 
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81'
+                        },
+                        dark: { 
+                            950: '#030712',
+                            900: '#0b0f19', 
+                            800: '#111827', 
+                            700: '#1f2937' 
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            background-color: #f8fafc; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
+        html.dark body { 
+            background-color: #0b0f19; 
+        }
+        
+        ::-webkit-scrollbar { 
+            width: 6px; 
+            height: 6px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: #cbd5e1; 
+            border-radius: 10px; 
+        }
+        html.dark ::-webkit-scrollbar-thumb { 
+            background: #374151; 
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+            border-radius: 1.25rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        html.dark .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            border-color: rgba(31, 41, 55, 0.7);
+            box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-input {
+            width: 100%; 
+            padding: 0.85rem 1.1rem; 
+            border-radius: 0.85rem;
+            border: 1.5px solid #e2e8f0; 
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease; 
+            color: inherit; 
+            outline: none;
+        }
+        html.dark .form-input { 
+            border-color: #374151; 
+            background: rgba(17, 24, 39, 0.4); 
+        }
+        .form-input:focus { 
+            border-color: #6366f1; 
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15); 
+            background: rgba(255, 255, 255, 0.9);
+        }
+        html.dark .form-input:focus {
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        .nav-item { 
+            transition: all 0.2s ease; 
+            border-left: 4px solid transparent; 
+        }
+        .nav-item.active { 
+            border-left-color: #6366f1; 
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0) 100%); 
+            color: #6366f1; 
+            font-weight: 700; 
+        }
+        html.dark .nav-item.active { 
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 100%); 
+        }
+
+        .view-section { 
+            display: none; 
+            animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .view-section.active { 
+            display: block; 
+        }
+
+        @keyframes slideUpFade { 
+            from { opacity: 0; transform: translateY(16px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .modal-overlay {
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(8px);
+        }
+        .modal-overlay.active { 
+            opacity: 1; 
+            visibility: visible; 
+        }
+        .modal-content { 
+            transform: translateY(20px) scale(0.97); 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .modal-overlay.active .modal-content { 
+            transform: translateY(0) scale(1); 
+        }
+
+        #toast-container { 
+            position: fixed; 
+            top: 1.5rem; 
+            right: 1.5rem; 
+            z-index: 9999; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.75rem; 
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast { 
+            animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        @keyframes slideInLeft { 
+            from { transform: translateX(120%); opacity: 0; } 
+            to { transform: translateX(0); opacity: 1; } 
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+        html.dark input[type=range]::-webkit-slider-runnable-track {
+            background: #374151;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body class="text-slate-700 dark:text-slate-200 antialiased overflow-hidden h-screen flex">
+
+    <div id="license-lock-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/90 backdrop-blur-md px-4 hidden">
+        <div class="glass-card w-full max-w-md p-8 relative overflow-hidden bg-white dark:bg-dark-900 border-indigo-500/30">
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-500 via-indigo-600 to-purple-600"></div>
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 mb-4 animate-pulse">
+                    <i class="ph-fill ph-keyhole text-3xl"></i>
+                </div>
+                <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Masa Trial Habis</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Masa uji coba gratis (7 Hari) Anda telah berakhir. Aktifkan lisensi Professional untuk terus menggunakannya.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider mb-1.5 text-slate-500">Kunci Lisensi Pro</label>
+                    <div class="relative">
+                        <i class="ph ph-key absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                        <input type="text" id="lock-license-key" class="form-input pl-11 font-mono uppercase text-center" placeholder="BIONE-XXXX-XXXX-XXXX">
+                    </div>
+                </div>
+                
+                <button onclick="App.license.activateFromLock()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex justify-center items-center gap-2">
+                    Aktifkan Lisensi <i class="ph-bold ph-arrow-right"></i>
+                </button>
+
+                <div class="p-3 bg-indigo-50 dark:bg-indigo-950/30 rounded-xl text-center border border-indigo-100 dark:border-indigo-900/30 text-xs">
+                    <p class="text-slate-500 dark:text-indigo-400">Gunakan Serial Key Demo ini:</p>
+                    <p class="font-mono font-bold text-indigo-700 dark:text-indigo-300 mt-1 select-all">BIONE-2026-FUTURE-PRO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-view" class="fixed inset-0 z-40 flex items-center justify-center bg-slate-50 dark:bg-dark-950 px-4">
+        <div class="glass-card w-full max-w-md p-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 mb-4 shadow-inner">
+                    <i class="ph-fill ph-wallet text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">BIONE <span class="text-indigo-600">DEBT</span></h1>
+                <p class="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-widest uppercase mt-1">Professional Debt Management</p>
+            </div>
+            
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">Username</label>
+                    <div class="relative">
+                        <i class="ph ph-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                        <input type="text" id="login-user" class="form-input pl-11" placeholder="Masukkan username admin" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">Password</label>
+                    <div class="relative">
+                        <i class="ph ph-lock-key absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                        <input type="password" id="login-pass" class="form-input pl-11" placeholder="••••••••" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/25 flex justify-center items-center gap-2">
+                    Masuk ke Sistem <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </form>
+            
+            <div class="mt-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/30 text-center">
+                <p class="text-xs text-amber-800 dark:text-amber-400 font-bold">Default Kredensial Sistem</p>
+                <div class="text-xs text-slate-600 dark:text-slate-400 mt-1 flex justify-center gap-4">
+                    <span>User: <strong class="text-slate-900 dark:text-white font-mono">Bione-Admin</strong></span>
+                    <span>Pass: <strong class="text-slate-900 dark:text-white font-mono">Bione-2026!@#</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-layout" class="flex w-full h-full hidden">
+        
+        <aside id="sidebar" class="w-72 flex-shrink-0 bg-white dark:bg-dark-900 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-transform duration-300 absolute md:relative z-40 h-full -translate-x-full md:translate-x-0">
+            <div class="h-20 flex items-center justify-between px-6 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                        <i class="ph-fill ph-wallet text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">BIONE</h2>
+                        <span class="text-[10px] font-bold text-indigo-600 tracking-wider">VERSION 2.6 PRO</span>
+                    </div>
+                </div>
+                <button class="md:hidden text-slate-500 hover:text-slate-800 dark:hover:text-white" onclick="App.ui.toggleSidebar()">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-6 px-3 flex flex-col gap-1.5">
+                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Menu Utama</p>
+                <a class="nav-item active flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer" data-target="dashboard">
+                    <i class="ph ph-squares-four text-xl"></i> <span>Dashboard</span>
+                </a>
+                <a class="nav-item flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer" data-target="creditors">
+                    <i class="ph ph-buildings text-xl"></i> <span>Master Kreditur</span>
+                </a>
+                <a class="nav-item flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer" data-target="debts">
+                    <i class="ph ph-briefcase text-xl"></i> <span>Kontrak Hutang</span>
+                </a>
+                <a class="nav-item flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer" data-target="billing">
+                    <i class="ph ph-calendar-check text-xl"></i> <span>Jadwal Tagihan</span>
+                </a>
+                
+                <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-widest mt-6 mb-2">Analisis & Laporan</p>
+                <a class="nav-item flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer" data-target="reports">
+                    <i class="ph ph-chart-pie-slice text-xl"></i> <span>Grouping & Ekspor</span>
+                </a>
+                <a class="nav-item flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer" data-target="maintenance">
+                    <i class="ph ph-hard-drive text-xl"></i> <span>Pusat Data JSON</span>
+                </a>
+            </nav>
+
+            <div class="p-4 mx-3 mb-2 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100/50 dark:from-slate-800/50 dark:to-slate-800/20 border border-indigo-100 dark:border-slate-800">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Lisensi</span>
+                    <span id="sidebar-license-badge" class="px-2 py-0.5 rounded text-[10px] font-black uppercase"></span>
+                </div>
+                <div class="text-sm font-semibold text-slate-800 dark:text-slate-200" id="sidebar-license-status">Memuat status...</div>
+                <button onclick="App.ui.showModal('modal-activate-license')" class="mt-2.5 w-full bg-white dark:bg-dark-800 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-slate-700 hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-[11px] font-bold py-1.5 rounded-lg transition-all" id="sidebar-btn-activate">
+                    Aktifkan Kunci PRO
+                </button>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800">
+                <button onclick="App.auth.logout()" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/20 dark:hover:bg-red-950/40 transition-colors font-semibold">
+                    <i class="ph ph-sign-out"></i> Keluar Sistem
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+            
+            <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden md:hidden" onclick="App.ui.toggleSidebar()"></div>
+
+            <header class="h-20 glass-card mx-4 mt-4 px-6 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-4">
+                    <button class="md:hidden text-slate-500 hover:text-slate-800 dark:hover:text-white" onclick="App.ui.toggleSidebar()">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                    <div>
+                        <h2 id="page-title" class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Dashboard</h2>
+                        <p id="page-subtitle" class="text-xs text-slate-500 hidden sm:block">Ringkasan aktivitas finansial Anda</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="App.ui.toggleDarkMode()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-dark-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-sm">
+                        <i class="ph-fill ph-moon dark:hidden text-lg"></i>
+                        <i class="ph-fill ph-sun hidden dark:block text-lg"></i>
+                    </button>
+                    <div class="hidden sm:flex items-center gap-3 pl-3 border-l border-slate-200 dark:border-slate-800">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-black">
+                            A
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold leading-none mb-1" id="current-username">Admin</span>
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Superuser</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="content-area" class="flex-1 overflow-y-auto p-4 sm:p-6 pb-24">
+                
+                <section id="view-dashboard" class="view-section active space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-5 border-t-4 border-t-indigo-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total Sisa Hutang</p>
+                                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight" id="kpi-sisa-hutang">Rp 0</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-500"><i class="ph-fill ph-wallet text-xl"></i></div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 border-t-4 border-t-amber-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Tagihan Bulan Ini</p>
+                                    <h3 class="text-2xl font-extrabold text-amber-600 dark:text-amber-400 tracking-tight" id="kpi-tagihan-bulan">Rp 0</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center text-amber-500"><i class="ph-fill ph-calendar-warning text-xl"></i></div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 border-t-4 border-t-emerald-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total Pembayaran</p>
+                                    <h3 class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight" id="kpi-total-bayar">Rp 0</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-500"><i class="ph-fill ph-check-circle text-xl"></i></div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 border-t-4 border-t-rose-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Kontrak Aktif</p>
+                                    <h3 class="text-2xl font-extrabold text-rose-600 dark:text-rose-400 tracking-tight" id="kpi-hutang-aktif">0</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 flex items-center justify-center text-rose-500"><i class="ph-fill ph-files text-xl"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 glass-card p-6 flex flex-col">
+                            <div class="flex justify-between items-center mb-5">
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">Tagihan Mendatang (Bulan Ini)</h3>
+                                    <p class="text-xs text-slate-400">Jadwal jatuh tempo cicilan bulan berjalan</p>
+                                </div>
+                                <button onclick="App.router.navigate('billing')" class="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 font-bold hover:underline">Lihat Semua</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse whitespace-nowrap" id="table-dash-upcoming">
+                                    <thead>
+                                        <tr class="border-b border-slate-150 dark:border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
+                                            <th class="pb-3 font-semibold">Kontrak</th>
+                                            <th class="pb-3 font-semibold">Kreditur</th>
+                                            <th class="pb-3 font-semibold">Jatuh Tempo</th>
+                                            <th class="pb-3 font-semibold text-right">Jumlah</th>
+                                            <th class="pb-3 font-semibold text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm divide-y divide-slate-100 dark:divide-slate-800/50">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1">Struktur Biaya Kumulatif</h3>
+                                <p class="text-xs text-slate-400 mb-6">Akumulasi potongan awal dan bunga saat ini</p>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-500 flex items-center justify-center"><i class="ph-fill ph-piggy-bank"></i></div>
+                                            <div>
+                                                <span class="font-semibold text-xs text-slate-500 block leading-tight">Tabungan Wajib</span>
+                                                <span class="text-[10px] text-emerald-500 font-bold">Terpotong di awal</span>
+                                            </div>
+                                        </div>
+                                        <span class="font-bold text-slate-800 dark:text-slate-200" id="dash-tabungan">Rp 0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-950 text-amber-500 flex items-center justify-center"><i class="ph-fill ph-scissors"></i></div>
+                                            <div>
+                                                <span class="font-semibold text-xs text-slate-500 block leading-tight">Potongan Admin</span>
+                                                <span class="text-[10px] text-slate-400 font-bold">Biaya &amp; Provisi</span>
+                                            </div>
+                                        </div>
+                                        <span class="font-bold text-slate-800 dark:text-slate-200" id="dash-admin">Rp 0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-rose-100 dark:bg-rose-900 text-rose-500 flex items-center justify-center"><i class="ph-fill ph-chart-line-up"></i></div>
+                                            <div>
+                                                <span class="font-semibold text-xs text-rose-700 dark:text-rose-400 block leading-tight">Total Bunga Berjalan</span>
+                                                <span class="text-[10px] text-rose-500 font-bold">Semua Kontrak</span>
+                                            </div>
+                                        </div>
+                                        <span class="font-bold text-rose-600 dark:text-rose-400" id="dash-bunga">Rp 0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-creditors" class="view-section space-y-4">
+                    <div class="glass-card p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div class="relative w-full sm:w-80">
+                            <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="search-creditor" class="form-input pl-11" placeholder="Cari nama atau instansi...">
+                        </div>
+                        <button class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/15" onclick="App.ui.showModal('modal-creditor')">
+                            <i class="ph-bold ph-plus"></i> Tambah Kreditur Baru
+                        </button>
+                    </div>
+                    
+                    <div class="glass-card overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left whitespace-nowrap" id="table-creditors">
+                                <thead class="bg-slate-50 dark:bg-dark-800 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
+                                    <tr>
+                                        <th class="p-4 font-bold">Nama Kreditur</th>
+                                        <th class="p-4 font-bold">Instansi / Lembaga</th>
+                                        <th class="p-4 font-bold">Kontak HP</th>
+                                        <th class="p-4 font-bold">Kategori</th>
+                                        <th class="p-4 font-bold text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-sm">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-debts" class="view-section space-y-4">
+                    <div class="glass-card p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div class="relative w-full sm:w-80">
+                            <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="search-debt" class="form-input pl-11" placeholder="Cari No Kontrak...">
+                        </div>
+                        <button class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/15" onclick="App.router.navigate('add-debt')">
+                            <i class="ph-bold ph-plus"></i> Buat Kontrak Hutang Baru
+                        </button>
+                    </div>
+                    
+                    <div class="glass-card overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left whitespace-nowrap" id="table-debts">
+                                <thead class="bg-slate-50 dark:bg-dark-800 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
+                                    <tr>
+                                        <th class="p-4 font-bold">No Kontrak</th>
+                                        <th class="p-4 font-bold">Kreditur</th>
+                                        <th class="p-4 font-bold text-right">Sisa Pokok</th>
+                                        <th class="p-4 font-bold text-right">Sisa Bunga</th>
+                                        <th class="p-4 font-bold text-right">Total Sisa</th>
+                                        <th class="p-4 font-bold text-center">Status</th>
+                                        <th class="p-4 font-bold text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-sm">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-add-debt" class="view-section">
+                    <div class="flex items-center gap-4 mb-6">
+                        <button class="w-10 h-10 rounded-xl bg-white dark:bg-dark-800 border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors" onclick="App.router.navigate('debts')">
+                            <i class="ph-bold ph-arrow-left"></i>
+                        </button>
+                        <div>
+                            <h3 class="font-extrabold text-xl text-slate-900 dark:text-white">Simulasi & Kontrak Baru</h3>
+                            <p class="text-xs text-slate-400">Pastikan input data akurat untuk simulasi pembayaran</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-7 glass-card p-6 space-y-6">
+                            
+                            <div>
+                                <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider"><i class="ph-fill ph-file-text"></i> Data Pinjaman Utama</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="md:col-span-2">
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">No Kontrak / Referensi</label>
+                                        <input type="text" id="sim-kontrak" class="form-input font-mono uppercase" placeholder="Contoh: CTR-2026-001">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Pilih Kreditur / Perusahaan</label>
+                                        <select id="sim-kreditur" class="form-input">
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Tgl Pengajuan</label>
+                                        <input type="date" id="sim-tgl-pengajuan" class="form-input" onchange="App.debt.calculate()">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Tgl Mulai/Cair</label>
+                                        <input type="date" id="sim-tgl-cair" class="form-input" onchange="App.debt.calculate()">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-xs font-black uppercase text-slate-800 dark:text-slate-200 mb-1.5">Total Pokok Pinjaman (Rp)</label>
+                                        <input type="text" id="sim-pokok" class="form-input text-lg font-black text-indigo-600 dark:text-indigo-400" value="0" oninput="App.debt.formatInput(this); App.debt.calculate()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-6 border-t border-slate-200 dark:border-slate-800">
+                                <h4 class="font-bold text-amber-600 dark:text-amber-500 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider"><i class="ph-fill ph-scissors"></i> Potongan Awal (Diambil dari Pokok)</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div><label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Biaya Admin (Rp)</label><input type="text" id="sim-pot-admin" class="form-input" value="0" oninput="App.debt.formatInput(this); App.debt.calculate()"></div>
+                                    <div><label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Biaya Provisi (Rp)</label><input type="text" id="sim-pot-provisi" class="form-input" value="0" oninput="App.debt.formatInput(this); App.debt.calculate()"></div>
+                                    <div><label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Asuransi (Rp)</label><input type="text" id="sim-pot-asuransi" class="form-input" value="0" oninput="App.debt.formatInput(this); App.debt.calculate()"></div>
+                                    <div><label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Tabungan Wajib (Rp)</label><input type="text" id="sim-pot-tabungan" class="form-input" value="0" oninput="App.debt.formatInput(this); App.debt.calculate()"></div>
+                                </div>
+                            </div>
+
+                            <div class="pt-6 border-t border-slate-200 dark:border-slate-800">
+                                <h4 class="font-bold text-rose-600 dark:text-rose-500 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider"><i class="ph-fill ph-percent"></i> Skema Bunga & Tenor</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Jenis Bunga</label>
+                                        <select id="sim-jenis-bunga" class="form-input" onchange="App.debt.calculate()">
+                                            <option value="flat">Flat (Bunga Tetap)</option>
+                                            <option value="menurun">Menurun (Efektif Saldo)</option>
+                                            <option value="tanpa_bunga">Tanpa Bunga (0%)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Bunga Keseluruhan (%)</label>
+                                        <input type="number" id="sim-bunga-persen" class="form-input" value="0" min="0" max="100" step="0.01" oninput="App.debt.calculate()">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Skema Bayar (Tenor)</label>
+                                        <select id="sim-tenor-jenis" class="form-input" onchange="App.debt.handleTenorChange()">
+                                            <option value="harian">Harian</option>
+                                            <option value="mingguan">Mingguan</option>
+                                            <option value="bulanan" selected>Bulanan</option>
+                                            <option value="tahunan">Tahunan</option>
+                                            <option value="custom">Custom (Hari)</option>
+                                        </select>
+                                    </div>
+                                    <div class="hidden" id="sim-tenor-custom-group">
+                                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Interval (Hari)</label>
+                                        <input type="number" id="sim-tenor-custom-hari" class="form-input" value="14" oninput="App.debt.calculate()">
+                                    </div>
+                                    
+                                    <div class="md:col-span-2 p-4 bg-slate-50 dark:bg-dark-800 rounded-xl border border-slate-150 dark:border-slate-800">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <label class="text-xs font-bold uppercase text-slate-500">Jumlah Kali Cicilan (Tenor)</label>
+                                            <input type="number" id="sim-jumlah-cicilan" class="w-20 form-input py-1 text-center font-bold" value="1" min="1" max="120" oninput="document.getElementById('sim-jumlah-cicilan-range').value = this.value; App.debt.calculate()">
+                                        </div>
+                                        <input type="range" id="sim-jumlah-cicilan-range" min="1" max="120" value="1" oninput="document.getElementById('sim-jumlah-cicilan').value = this.value; App.debt.calculate()">
+                                        <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-semibold">
+                                            <span>1 Kali</span>
+                                            <span>60 Kali</span>
+                                            <span>120 Kali</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 flex flex-col gap-6">
+                            <div class="glass-card p-6 border-l-4 border-l-indigo-600 relative overflow-hidden">
+                                <h4 class="font-bold text-slate-900 dark:text-white text-base mb-5 flex items-center gap-2"><i class="ph-fill ph-calculator text-indigo-500"></i> Ringkasan Simulasi Real-Time</h4>
+                                
+                                <div class="space-y-4">
+                                    <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Bersih Diterima</span>
+                                            <i class="ph-fill ph-hand-coins text-emerald-500 text-lg"></i>
+                                        </div>
+                                        <div class="text-2xl font-black text-emerald-600 dark:text-emerald-400" id="res-dana-diterima">Rp 0</div>
+                                        <p class="text-[10px] text-slate-400 mt-1">Pokok setelah dikurangi semua potongan administrasi</p>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="p-3 bg-slate-50 dark:bg-dark-800 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
+                                            <span class="text-[10px] font-bold text-slate-400 block uppercase mb-1">Total Potongan</span>
+                                            <span class="font-bold text-amber-600" id="res-tot-potongan">Rp 0</span>
+                                        </div>
+                                        <div class="p-3 bg-slate-50 dark:bg-dark-800 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
+                                            <span class="text-[10px] font-bold text-slate-400 block uppercase mb-1">Bunga Kontrak</span>
+                                            <span class="font-bold text-rose-500" id="res-tot-bunga">Rp 0</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 rounded-xl bg-rose-50/50 dark:bg-rose-950/10 border border-rose-100 dark:border-rose-900/20">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider">Total Kewajiban</span>
+                                            <i class="ph-fill ph-scales text-rose-500 text-lg"></i>
+                                        </div>
+                                        <div class="text-xl font-extrabold text-rose-600 dark:text-rose-400" id="res-tot-hutang">Rp 0</div>
+                                        <p class="text-[10px] text-slate-400 mt-0.5">Total nominal pengembalian (Pokok + Bunga)</p>
+                                    </div>
+
+                                    <div class="p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-100/50 dark:border-indigo-900/30">
+                                        <span class="text-[10px] font-bold text-indigo-700 dark:text-indigo-400 block uppercase mb-1 tracking-wider">Angsuran Rata-Rata / Periode</span>
+                                        <div class="text-3xl font-black text-indigo-600 dark:text-indigo-400" id="res-angsuran">Rp 0</div>
+                                    </div>
+
+                                    <div class="flex justify-between items-center py-2 px-1 text-xs font-semibold">
+                                        <span class="text-slate-400 uppercase">Estimasi Selesai (Lunas):</span>
+                                        <span class="font-bold text-slate-800 dark:text-white" id="res-estimasi-selesai">-</span>
+                                    </div>
+                                </div>
+
+                                <button class="w-full mt-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex justify-center items-center gap-2" onclick="App.debt.saveNewDebt()">
+                                    <i class="ph-bold ph-floppy-disk"></i> Simpan Kontrak & Jadwal
+                                </button>
+                            </div>
+
+                            <div class="glass-card p-5 flex-1 flex flex-col min-h-[250px]">
+                                <h5 class="font-bold text-slate-800 dark:text-white text-sm mb-3">Tabel Simulasi Angsuran</h5>
+                                <div class="flex-1 overflow-y-auto max-h-[280px] border border-slate-100 dark:border-slate-800 rounded-xl">
+                                    <table class="w-full text-xs text-left" id="table-sim-projection">
+                                        <thead class="bg-slate-50 dark:bg-dark-800 text-slate-400 font-bold sticky top-0">
+                                            <tr>
+                                                <th class="p-2 text-center w-8">Ke</th>
+                                                <th class="p-2">Jatuh Tempo</th>
+                                                <th class="p-2 text-right">Pokok</th>
+                                                <th class="p-2 text-right">Bunga</th>
+                                                <th class="p-2 text-right">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-mono">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-billing" class="view-section space-y-4">
+                    <div class="glass-card p-4 sm:p-6 flex flex-col xl:flex-row justify-between items-center gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Status Pembayaran</label>
+                                <select id="filter-billing-status" class="form-input py-2 text-xs" onchange="App.ui.renderBilling()">
+                                    <option value="all">Semua Status Tagihan</option>
+                                    <option value="pending" selected>Belum Lunas (Pending/Terlambat)</option>
+                                    <option value="paid">Sudah Lunas</option>
+                                    <option value="absen">Absen / Dilewati</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Bulan Angsuran</label>
+                                <input type="month" id="filter-billing-month" class="form-input py-2 text-xs" onchange="App.ui.renderBilling()">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Filter Nomor Kontrak</label>
+                                <select id="filter-billing-contract" class="form-input py-2 text-xs" onchange="App.ui.renderBilling()">
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Filter Nama Kreditur</label>
+                                <select id="filter-billing-creditor" class="form-input py-2 text-xs" onchange="App.ui.renderBilling()">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left whitespace-nowrap" id="table-billing">
+                                <thead class="bg-slate-50 dark:bg-dark-800 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
+                                    <tr>
+                                        <th class="p-4 font-bold">Tgl Jatuh Tempo</th>
+                                        <th class="p-4 font-bold">Kontrak</th>
+                                        <th class="p-4 font-bold">Kreditur</th>
+                                        <th class="p-4 font-bold text-center">Angsuran Ke</th>
+                                        <th class="p-4 font-bold text-right">Porsi Pokok</th>
+                                        <th class="p-4 font-bold text-right">Porsi Bunga</th>
+                                        <th class="p-4 font-bold text-right">Total Bayar</th>
+                                        <th class="p-4 font-bold text-center">Status / Keterangan</th>
+                                        <th class="p-4 font-bold text-center">Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-sm">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-reports" class="view-section space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="App.reports.switchSubTab('contract')" id="btn-report-contract" class="p-4 rounded-xl text-center font-bold text-sm bg-indigo-600 text-white shadow-md transition-all flex items-center justify-center gap-2">
+                            <i class="ph ph-briefcase"></i> Ringkasan Per Kontrak
+                        </button>
+                        <button onclick="App.reports.switchSubTab('creditor')" id="btn-report-creditor" class="p-4 rounded-xl text-center font-bold text-sm bg-white dark:bg-dark-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2">
+                            <i class="ph ph-buildings"></i> Ringkasan Per Kreditur / Perusahaan
+                        </button>
+                    </div>
+
+                    <div id="sub-report-contract" class="space-y-4">
+                        <div class="glass-card p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="font-extrabold text-lg">Laporan Terstruktur Per Kontrak</h4>
+                                <button onclick="App.reports.export('debts')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors">
+                                    <i class="ph ph-file-csv"></i> Ekspor CSV Kontrak
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs whitespace-nowrap" id="table-report-by-contract">
+                                    <thead class="bg-slate-50 dark:bg-dark-800 text-slate-500 font-bold uppercase tracking-wider">
+                                        <tr>
+                                            <th class="p-3">No Kontrak</th>
+                                            <th class="p-3">Kreditur / Perusahaan</th>
+                                            <th class="p-3 text-right">Pokok Awal</th>
+                                            <th class="p-3 text-right">Total Kewajiban</th>
+                                            <th class="p-3 text-right">Sudah Dibayar</th>
+                                            <th class="p-3 text-right">Sisa Hutang</th>
+                                            <th class="p-3 text-center">Progress Lunas</th>
+                                            <th class="p-3 text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-mono">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sub-report-creditor" class="space-y-4 hidden">
+                        <div class="glass-card p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="font-extrabold text-lg">Akumulasi Finansial Per Nama Perusahaan/Kreditur</h4>
+                                <button onclick="App.reports.export('creditors')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors">
+                                    <i class="ph ph-file-csv"></i> Ekspor CSV Kreditur
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs whitespace-nowrap" id="table-report-by-creditor">
+                                    <thead class="bg-slate-50 dark:bg-dark-800 text-slate-500 font-bold uppercase tracking-wider">
+                                        <tr>
+                                            <th class="p-3">Nama Perusahaan / Kreditur</th>
+                                            <th class="p-3 text-center">Kontrak Aktif</th>
+                                            <th class="p-3 text-right">Total Pokok</th>
+                                            <th class="p-3 text-right">Total Kewajiban</th>
+                                            <th class="p-3 text-right">Total Dibayar</th>
+                                            <th class="p-3 text-right">Sisa Kewajiban</th>
+                                            <th class="p-3 text-center">Sisa Rasio Tagihan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-mono">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button class="flex items-center justify-center gap-2 p-4 rounded-xl border border-indigo-200 dark:border-slate-800 bg-white dark:bg-dark-900 text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50 dark:hover:bg-slate-800/50 transition-colors" onclick="App.reports.export('installments')">
+                            <i class="ph ph-calendar text-xl"></i> Ekspor CSV Jadwal Cicilan
+                        </button>
+                        <button class="flex items-center justify-center gap-2 p-4 rounded-xl border border-indigo-200 dark:border-slate-800 bg-white dark:bg-dark-900 text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50 dark:hover:bg-slate-800/50 transition-colors" onclick="App.reports.export('payments')">
+                            <i class="ph ph-receipt text-xl"></i> Ekspor CSV Riwayat Bayar
+                        </button>
+                        <div class="p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-400 text-center font-semibold text-xs flex items-center justify-center">
+                            Format CSV siap dikonsumsi oleh MS Excel &amp; Google Sheets.
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-maintenance" class="view-section max-w-3xl mx-auto space-y-6">
+                    <div class="glass-card p-6 sm:p-8 space-y-6">
+                        <div class="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center text-2xl">
+                                <i class="ph-fill ph-hard-drives"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-lg text-slate-950 dark:text-white">Pusat Backup &amp; Recovery Data</h3>
+                                <p class="text-xs text-slate-400">Pastikan integritas finansial aman dengan mencadangkan data secara berkala</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-5 rounded-2xl bg-indigo-50/50 dark:bg-slate-800/20 border border-indigo-100/50 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5"><i class="ph-bold ph-arrow-circle-down"></i> Pencadangan Data (Backup)</h4>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Ekspor seluruh data keuangan (Kreditur, Kontrak, Cicilan, Riwayat Bayar, Lisensi) menjadi berkas file JSON yang dapat Anda unduh ke perangkat Anda.</p>
+                                </div>
+                                <button onclick="App.maintenance.exportJSON()" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md">
+                                    <i class="ph ph-download"></i> Download Backup Berkas JSON
+                                </button>
+                            </div>
+
+                            <div class="p-5 rounded-2xl bg-amber-50/30 dark:bg-slate-800/20 border border-amber-100/50 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5"><i class="ph-bold ph-arrow-circle-up"></i> Pemulihan Data (Restore)</h4>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Unggah berkas cadangan JSON yang Anda miliki sebelumnya untuk memulihkan seluruh status data. Tindakan ini akan menimpa data yang ada saat ini.</p>
+                                </div>
+                                <div class="mt-4 space-y-2">
+                                    <input type="file" id="import-json-file" accept=".json" class="hidden" onchange="App.maintenance.importJSON(this)">
+                                    <button onclick="document.getElementById('import-json-file').click()" class="w-full bg-slate-100 hover:bg-slate-200 dark:bg-dark-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white border border-slate-300 dark:border-slate-700 font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+                                        <i class="ph ph-upload"></i> Unggah &amp; Pulihkan Cadangan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-red-200 dark:border-red-900/30 bg-red-50/30 dark:bg-red-950/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h5 class="font-bold text-red-700 dark:text-red-400 text-sm">Zona Bahaya: Reset Total Data</h5>
+                                <p class="text-xs text-slate-500">Menghapus seluruh database dan mengembalikan aplikasi ke kondisi pabrik semula.</p>
+                            </div>
+                            <button onclick="App.maintenance.factoryReset()" class="w-full sm:w-auto px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors">
+                                Hapus Bersih Database
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-creditor" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-content glass-card w-full max-w-md bg-white dark:bg-dark-900 overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="font-extrabold text-lg">Form Input Kreditur</h3>
+                <button class="text-slate-400 hover:text-slate-700 dark:hover:text-white" onclick="App.ui.hideModal('modal-creditor')"><i class="ph-bold ph-x text-lg"></i></button>
+            </div>
+            <div class="p-5 overflow-y-auto">
+                <form id="form-creditor" class="space-y-4">
+                    <input type="hidden" id="cred-id">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Nama Kreditur / Individu</label>
+                        <input type="text" id="cred-name" class="form-input" required placeholder="Contoh: Budi Santoso">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Lembaga / Perusahaan</label>
+                        <input type="text" id="cred-company" class="form-input" placeholder="Contoh: Bank Central Asia (BCA)">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Kontak WhatsApp / No HP</label>
+                        <input type="text" id="cred-phone" class="form-input" placeholder="Contoh: 08123456789">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Kategori Kreditur</label>
+                        <select id="cred-category" class="form-input">
+                            <option>Bank</option>
+                            <option>Leasing</option>
+                            <option>Supplier</option>
+                            <option>Pinjol</option>
+                            <option>Pribadi</option>
+                            <option>Keluarga</option>
+                            <option>Lainnya</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/20">
+                <button type="button" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-colors" onclick="App.creditor.save()">Simpan Data Kreditur</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-payment" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-content glass-card w-full max-w-sm bg-white dark:bg-dark-900 overflow-hidden">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="font-extrabold text-lg">Proses Log Pembayaran</h3>
+                <button class="text-slate-400 hover:text-slate-700 dark:hover:text-white" onclick="App.ui.hideModal('modal-payment')"><i class="ph-bold ph-x text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <input type="hidden" id="pay-inst-id">
+                <input type="hidden" id="pay-debt-id">
+                
+                <div class="bg-indigo-50 dark:bg-indigo-950/30 p-4 rounded-xl border border-indigo-100/50 dark:border-indigo-900/30 text-center">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-0.5">Total Angsuran</p>
+                    <div id="pay-amount-txt" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">Rp 0</div>
+                </div>
+
+                <div class="flex justify-between text-xs py-2 border-b border-slate-100 dark:border-slate-800 font-semibold">
+                    <span class="text-slate-400">Kontrak</span>
+                    <span class="font-mono text-slate-900 dark:text-white" id="pay-kontrak-txt">-</span>
+                </div>
+                <div class="flex justify-between text-xs py-2 border-b border-slate-100 dark:border-slate-800 font-semibold mb-2">
+                    <span class="text-slate-400">Cicilan Ke</span>
+                    <span class="font-mono text-slate-800 dark:text-white" id="pay-cicilan-txt">-</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Status Eksekusi</label>
+                    <select id="pay-status-type" class="form-input text-xs" onchange="App.billing.handleActionTypeChange()">
+                        <option value="PAID">Sudah Lunas Dibayar</option>
+                        <option value="ABSEN">Absen / Tidak Ada Pembayaran</option>
+                    </select>
+                </div>
+
+                <div id="pay-absen-reason-group" class="hidden">
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Alasan Penundaan (Otomatis Tambah Tenor)</label>
+                    <select id="pay-absen-reason" class="form-input text-xs">
+                        <option value="Kalender Libur Merah Nasional">Kalender Libur Merah Nasional</option>
+                        <option value="Sakit">Sakit</option>
+                        <option value="Ijin">Ijin</option>
+                        <option value="Petugas Tidak Datang">Petugas Tidak Datang</option>
+                        <option value="Lainnya">Keterangan Lainnya</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Tanggal Eksklusi/Aktual</label>
+                    <input type="date" id="pay-date" class="form-input">
+                </div>
+                
+                <button type="button" class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition-all flex justify-center items-center gap-2 shadow-lg shadow-emerald-500/15" onclick="App.billing.processPayment()">
+                    <i class="ph-bold ph-check-circle"></i> Konfirmasi Tindakan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-debt-detail" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+         <div class="modal-content glass-card w-full max-w-3xl bg-white dark:bg-dark-900 overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-dark-800/40">
+                <div>
+                    <h3 class="font-extrabold text-lg">Rincian Komprehensif Kontrak</h3>
+                    <p class="text-xs text-indigo-600 dark:text-indigo-400 font-mono font-bold" id="det-kontrak-no"></p>
+                </div>
+                <button class="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 dark:bg-dark-800 transition-colors" onclick="App.ui.hideModal('modal-debt-detail')"><i class="ph-bold ph-x"></i></button>
+            </div>
+            
+            <div class="p-5 overflow-y-auto space-y-6">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="p-3.5 rounded-xl border border-slate-150 dark:border-slate-800 bg-slate-50/50 dark:bg-dark-800/40">
+                        <p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Pokok Pinjaman</p>
+                        <p class="font-bold text-slate-900 dark:text-white text-sm" id="det-pokok">Rp 0</p>
+                    </div>
+                    <div class="p-3.5 rounded-xl border border-rose-100 dark:border-rose-950/30 bg-rose-50/20 dark:bg-rose-950/10">
+                        <p class="text-[10px] uppercase font-bold text-rose-500 mb-1">Total Kewajiban</p>
+                        <p class="font-black text-rose-600 dark:text-rose-400 text-sm" id="det-total">Rp 0</p>
+                    </div>
+                    <div class="p-3.5 rounded-xl border border-emerald-100 dark:border-emerald-950/30 bg-emerald-50/20 dark:bg-emerald-950/10">
+                        <p class="text-[10px] uppercase font-bold text-emerald-500 mb-1">Telah Dibayar</p>
+                        <p class="font-bold text-emerald-600 dark:text-emerald-400 text-sm" id="det-dibayar">Rp 0</p>
+                    </div>
+                    <div class="p-3.5 rounded-xl border border-amber-100 dark:border-amber-950/30 bg-amber-50/20 dark:bg-amber-950/10">
+                        <p class="text-[10px] uppercase font-bold text-amber-500 mb-1">Sisa Sisa Saldo</p>
+                        <p class="font-black text-amber-600 dark:text-amber-400 text-sm" id="det-sisa">Rp 0</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2"><i class="ph-fill ph-list-numbers text-indigo-500"></i> Daftar Angsuran Kontrak Ini</h4>
+                    <div class="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden max-h-[300px] overflow-y-auto">
+                        <table class="w-full text-left text-xs whitespace-nowrap" id="table-debt-detail-inst">
+                            <thead class="bg-slate-50 dark:bg-dark-800 text-slate-500 font-bold sticky top-0 uppercase tracking-wider">
+                                <tr>
+                                    <th class="p-3 text-center w-10">Ke</th>
+                                    <th class="p-3">Jatuh Tempo</th>
+                                    <th class="p-3 text-right">Porsi Pokok</th>
+                                    <th class="p-3 text-right">Porsi Bunga</th>
+                                    <th class="p-3 text-right">Total Angsuran</th>
+                                    <th class="p-3 text-center">Status / Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-mono">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+
+    <div id="modal-activate-license" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-content glass-card w-full max-w-sm bg-white dark:bg-dark-900 overflow-hidden">
+            <div class="flex justify-between items-center p-5 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="font-extrabold text-lg">Aktivasi Lisensi Pro</h3>
+                <button class="text-slate-400 hover:text-slate-700 dark:hover:text-white" onclick="App.ui.hideModal('modal-activate-license')"><i class="ph-bold ph-x text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Masukkan Serial Key</label>
+                    <input type="text" id="manual-license-key" class="form-input text-center font-mono uppercase" placeholder="BIONE-XXXX-XXXX-XXXX">
+                </div>
+                
+                <button onclick="App.license.activateFromManual()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all shadow-md">
+                    Konfirmasi Aktivasi
+                </button>
+                
+                <div class="p-3 bg-slate-50 dark:bg-dark-800 border border-slate-200 dark:border-slate-800 rounded-xl text-center text-xs">
+                    <p class="text-slate-400">Gunakan Kunci Lisensi:</p>
+                    <p class="font-mono font-bold text-indigo-600 dark:text-indigo-400 mt-1 select-all">BIONE-2026-FUTURE-PRO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-custom-dialog" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-content glass-card w-full max-w-sm bg-white dark:bg-dark-900 overflow-hidden p-6 text-center space-y-5">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/20 text-amber-500 text-2xl" id="dialog-icon-wrapper">
+                <i class="ph-bold ph-warning" id="dialog-icon"></i>
+            </div>
+            <div>
+                <h4 class="font-extrabold text-lg text-slate-900 dark:text-white" id="dialog-title">Apakah Anda yakin?</h4>
+                <p class="text-xs text-slate-400 mt-1.5 leading-relaxed" id="dialog-message">Tindakan ini tidak dapat dibatalkan.</p>
+            </div>
+            <div class="flex gap-2.5">
+                <button id="btn-dialog-cancel" class="flex-1 bg-slate-100 hover:bg-slate-200 dark:bg-dark-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold py-2.5 rounded-lg text-xs transition-colors">
+                    Kembali
+                </button>
+                <button id="btn-dialog-confirm" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-lg text-xs transition-colors shadow-md">
+                    Ya, Lanjutkan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>
+        const Utils = {
+            generateId: () => '_' + Math.random().toString(36).substr(2, 9),
+            
+            formatMoney: (amount) => {
+                const val = Math.round(parseFloat(amount));
+                if (isNaN(val) || val === null) return 'Rp 0';
+                return new Intl.NumberFormat('id-ID', { 
+                    style: 'currency', 
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(val);
+            },
+            
+            parseMoney: (val) => {
+                if (typeof val === 'number') return val;
+                if (!val) return 0;
+                const digits = val.toString().replace(/\D/g, '');
+                return parseInt(digits, 10) || 0;
+            },
+            
+            formatDate: (dateStr) => {
+                if(!dateStr) return '-';
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+            },
+            
+            getToday: () => {
+                const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+                return (new Date(Date.now() - tzoffset)).toISOString().split('T')[0];
+            },
+            
+            addDays: (dateStr, days) => {
+                const d = new Date(dateStr);
+                d.setDate(d.getDate() + days);
+                return d.toISOString().split('T')[0];
+            },
+            
+            addMonths: (dateStr, months) => {
+                const d = new Date(dateStr);
+                d.setMonth(d.getMonth() + months);
+                return d.toISOString().split('T')[0];
+            }
+        };
+
+        // Memori virtual jika LocalStorage diblokir di browser
+        const MemoryDB = {};
+
+        const DB = {
+            get: (key) => {
+                try {
+                    const data = localStorage.getItem('bione_v3_' + key);
+                    return data ? JSON.parse(data) : (MemoryDB[key] || null);
+                } catch (e) {
+                    return MemoryDB[key] || null;
+                }
+            },
+            set: (key, data) => {
+                try {
+                    localStorage.setItem('bione_v3_' + key, JSON.stringify(data));
+                } catch (e) {
+                    MemoryDB[key] = data;
+                }
+            },
+            init: () => {
+                if(!DB.get('users')) DB.set('users', [{id: 'u1', username: 'Bione-Admin', password: 'Bione-2026!@#', role: 'owner'}]);
+                if(!DB.get('creditors')) DB.set('creditors', []);
+                if(!DB.get('debts')) DB.set('debts', []);
+                if(!DB.get('installments')) DB.set('installments', []);
+                if(!DB.get('payments')) DB.set('payments', []);
+                
+                try {
+                    if(!localStorage.getItem('bione_lic_activated')) {
+                        localStorage.setItem('bione_lic_activated', 'false');
+                    }
+                    if(!localStorage.getItem('bione_lic_start')) {
+                        localStorage.setItem('bione_lic_start', Date.now().toString());
+                    }
+                } catch(e) {
+                    if (!MemoryDB['bione_lic_activated']) MemoryDB['bione_lic_activated'] = 'false';
+                    if (!MemoryDB['bione_lic_start']) MemoryDB['bione_lic_start'] = Date.now().toString();
+                }
+            }
+        };
+
+        const App = {
+            state: { 
+                currentUser: null, 
+                currentView: 'dashboard',
+                currentReportSubTab: 'contract',
+                tempProjection: [],
+                tempTotalInterest: 0,
+                tempTotalDebt: 0
+            },
+
+            init: () => {
+                DB.init();
+                
+                let currentTheme = 'light';
+                try {
+                    currentTheme = localStorage.getItem('bione_theme') || 'light';
+                } catch(e) {}
+
+                if(currentTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.remove('dark');
+                }
+                
+                document.getElementById('sim-tgl-pengajuan').value = Utils.getToday();
+                document.getElementById('sim-tgl-cair').value = Utils.getToday();
+                document.getElementById('filter-billing-month').value = Utils.getToday().substring(0, 7);
+
+                document.getElementById('login-form').addEventListener('submit', App.auth.login);
+                document.getElementById('search-creditor').addEventListener('input', App.ui.renderCreditors);
+                document.getElementById('search-debt').addEventListener('input', App.ui.renderDebts);
+
+                App.license.check();
+                App.auth.check();
+            },
+
+            license: {
+                check: () => {
+                    let isActivated = false;
+                    let startTs = Date.now();
+                    try {
+                        isActivated = localStorage.getItem('bione_lic_activated') === 'true';
+                        startTs = parseInt(localStorage.getItem('bione_lic_start'), 10) || Date.now();
+                    } catch(e) {
+                        isActivated = MemoryDB['bione_lic_activated'] === 'true';
+                        startTs = parseInt(MemoryDB['bione_lic_start'], 10) || Date.now();
+                    }
+
+                    const now = Date.now();
+                    const diffDays = Math.floor((now - startTs) / (1000 * 60 * 60 * 24));
+                    const daysRemaining = Math.max(0, 7 - diffDays);
+
+                    const badge = document.getElementById('sidebar-license-badge');
+                    const statusText = document.getElementById('sidebar-license-status');
+                    const btnActivate = document.getElementById('sidebar-btn-activate');
+
+                    if (isActivated) {
+                        badge.innerText = 'PRO';
+                        badge.className = 'px-2 py-0.5 rounded text-[10px] font-black uppercase bg-emerald-500 text-white';
+                        statusText.innerText = 'Aktif (Lifetime)';
+                        if (btnActivate) btnActivate.classList.add('hidden');
+                        document.getElementById('license-lock-screen').classList.add('hidden');
+                    } else {
+                        if (daysRemaining <= 0) {
+                            badge.innerText = 'EXP';
+                            badge.className = 'px-2 py-0.5 rounded text-[10px] font-black uppercase bg-red-600 text-white animate-pulse';
+                            statusText.innerText = 'Uji Coba Berakhir';
+                            document.getElementById('license-lock-screen').classList.remove('hidden');
+                        } else {
+                            badge.innerText = 'TRIAL';
+                            badge.className = 'px-2 py-0.5 rounded text-[10px] font-black uppercase bg-amber-500 text-white';
+                            statusText.innerText = `${daysRemaining} Hari Tersisa`;
+                            document.getElementById('license-lock-screen').classList.add('hidden');
+                        }
+                    }
+                },
+                activate: (key) => {
+                    if (key.trim().toUpperCase() === 'BIONE-2026-FUTURE-PRO') {
+                        try {
+                            localStorage.setItem('bione_lic_activated', 'true');
+                        } catch(e) {
+                            MemoryDB['bione_lic_activated'] = 'true';
+                        }
+                        App.license.check();
+                        App.ui.toast('Aktivasi Berhasil! Selamat datang di BIONE Pro.');
+                        return true;
+                    } else {
+                        App.ui.toast('Gagal! Serial key lisensi tidak valid.', 'error');
+                        return false;
+                    }
+                },
+                activateFromLock: () => {
+                    const key = document.getElementById('lock-license-key').value;
+                    if(App.license.activate(key)) {
+                        document.getElementById('license-lock-screen').classList.add('hidden');
+                    }
+                },
+                activateFromManual: () => {
+                    const key = document.getElementById('manual-license-key').value;
+                    if(App.license.activate(key)) {
+                        App.ui.hideModal('modal-activate-license');
+                    }
+                }
+            },
+
+            auth: {
+                login: (e) => {
+                    e.preventDefault();
+                    const u = document.getElementById('login-user').value;
+                    const p = document.getElementById('login-pass').value;
+                    const users = DB.get('users');
+                    const user = users.find(x => x.username === u && x.password === p);
+
+                    if (user) {
+                        sessionStorage.setItem('bione_session', JSON.stringify(user));
+                        App.auth.check();
+                    } else {
+                        App.ui.toast('Username atau password tidak terdaftar!', 'error');
+                    }
+                },
+                logout: () => {
+                    sessionStorage.removeItem('bione_session');
+                    App.state.currentUser = null;
+                    document.getElementById('app-layout').classList.add('hidden');
+                    document.getElementById('login-view').classList.remove('hidden');
+                    document.getElementById('login-view').classList.add('flex');
+                    document.getElementById('login-form').reset();
+                },
+                check: () => {
+                    const session = sessionStorage.getItem('bione_session');
+                    if (session) {
+                        App.state.currentUser = JSON.parse(session);
+                        document.getElementById('current-username').innerText = App.state.currentUser.username;
+                        document.getElementById('login-view').classList.add('hidden');
+                        document.getElementById('login-view').classList.remove('flex');
+                        document.getElementById('app-layout').classList.remove('hidden');
+                        App.router.navigate('dashboard');
+                    }
+                }
+            },
+
+            router: {
+                navigate: (view) => {
+                    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                    const targetView = document.getElementById('view-' + view);
+                    if(targetView) targetView.classList.add('active');
+                    
+                    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                    const navItem = document.querySelector(`.nav-item[data-target="${view}"]`);
+                    if(navItem) navItem.classList.add('active');
+
+                    const titles = { 
+                        dashboard: 'Dashboard Utama', 
+                        creditors: 'Master Kreditur & Perusahaan', 
+                        debts: 'Daftar Kontrak Hutang', 
+                        'add-debt': 'Simulasi & Kontrak Baru', 
+                        billing: 'Jadwal Tagihan Aktual', 
+                        reports: 'Pusat Analisis & Laporan Terpisah',
+                        maintenance: 'Pusat Database JSON'
+                    };
+                    const subtitles = {
+                        dashboard: 'Ringkasan posisi keuangan dan sisa kewajiban berjalan',
+                        creditors: 'Kelola data perusahaan pembiayaan, perbankan, dan relasi',
+                        debts: 'Status portfolio semua jenis pinjaman Anda',
+                        'add-debt': 'Kalkulasi otomatis bunga tetap, menurun, serta potongan admin',
+                        billing: 'Pantau tagihan jatuh tempo, filter dinamis dan eksekusi reschedule angsuran',
+                        reports: 'Modul pengelompokan performa keuangan terstruktur terpisah',
+                        maintenance: 'Impor & Ekspor berkas cadangan data secara aman'
+                    };
+
+                    document.getElementById('page-title').innerText = titles[view] || view;
+                    document.getElementById('page-subtitle').innerText = subtitles[view] || '';
+
+                    if(view === 'dashboard') App.ui.renderDashboard();
+                    if(view === 'creditors') App.ui.renderCreditors();
+                    if(view === 'debts') App.ui.renderDebts();
+                    if(view === 'add-debt') { 
+                        App.ui.populateCreditorSelect(); 
+                        App.debt.calculate(); 
+                    }
+                    if(view === 'billing') {
+                        App.ui.populateBillingFilters();
+                        App.ui.renderBilling();
+                    }
+                    if(view === 'reports') App.reports.render();
+
+                    App.state.currentView = view;
+                    if(window.innerWidth < 768) App.ui.toggleSidebar(false);
+                }
+            },
+
+            creditor: {
+                save: () => {
+                    const id = document.getElementById('cred-id').value;
+                    const name = document.getElementById('cred-name').value;
+                    if(!name) return App.ui.toast('Nama kreditur wajib diisi!', 'error');
+
+                    const data = {
+                        id: id || Utils.generateId(),
+                        name: name,
+                        company: document.getElementById('cred-company').value,
+                        phone: document.getElementById('cred-phone').value,
+                        category: document.getElementById('cred-category').value
+                    };
+
+                    let creditors = DB.get('creditors');
+                    if(id) {
+                        const idx = creditors.findIndex(c => c.id === id);
+                        if(idx > -1) creditors[idx] = data;
+                    } else {
+                        creditors.push(data);
+                    }
+
+                    DB.set('creditors', creditors);
+                    App.ui.hideModal('modal-creditor');
+                    App.ui.renderCreditors();
+                    App.ui.toast('Data kreditur berhasil disimpan.');
+                },
+                delete: (id) => {
+                    App.ui.confirm(
+                        'Hapus Kreditur?', 
+                        'Seluruh data kreditur ini akan terhapus. Pastikan tidak ada kontrak aktif yang terikat.',
+                        () => {
+                            let creditors = DB.get('creditors');
+                            creditors = creditors.filter(c => c.id !== id);
+                            DB.set('creditors', creditors);
+                            App.ui.renderCreditors();
+                            App.ui.toast('Kreditur berhasil dihapus.');
+                        }
+                    );
+                }
+            },
+
+            debt: {
+                formatInput: (input) => {
+                    let val = input.value.replace(/\D/g, '');
+                    if(val) {
+                        input.value = new Intl.NumberFormat('id-ID').format(parseInt(val, 10));
+                    } else {
+                        input.value = '0';
+                    }
+                },
+                
+                handleTenorChange: () => {
+                    const type = document.getElementById('sim-tenor-jenis').value;
+                    const customGroup = document.getElementById('sim-tenor-custom-group');
+                    if(type === 'custom') customGroup.classList.remove('hidden');
+                    else customGroup.classList.add('hidden');
+                    App.debt.calculate();
+                },
+
+                calculate: () => {
+                    const pokok = Utils.parseMoney(document.getElementById('sim-pokok').value) || 0;
+                    const admin = Utils.parseMoney(document.getElementById('sim-pot-admin').value) || 0;
+                    const provisi = Utils.parseMoney(document.getElementById('sim-pot-provisi').value) || 0;
+                    const asuransi = Utils.parseMoney(document.getElementById('sim-pot-asuransi').value) || 0;
+                    const tabungan = Utils.parseMoney(document.getElementById('sim-pot-tabungan').value) || 0;
+                    
+                    const jenisBunga = document.getElementById('sim-jenis-bunga').value;
+                    const bungaPersen = parseFloat(document.getElementById('sim-bunga-persen').value) || 0;
+                    const jumlahCicilan = parseInt(document.getElementById('sim-jumlah-cicilan').value) || 1;
+
+                    const totalPotongan = admin + provisi + asuransi + tabungan;
+                    const danaDiterima = Math.max(0, pokok - totalPotongan);
+
+                    let totalBunga = 0;
+                    let projectionList = [];
+                    const tglCair = document.getElementById('sim-tgl-cair').value || Utils.getToday();
+                    const tenorJenis = document.getElementById('sim-tenor-jenis').value;
+                    const customDays = parseInt(document.getElementById('sim-tenor-custom-hari').value) || 14;
+
+                    let currDate = tglCair;
+
+                    if (pokok > 0) {
+                        if (jenisBunga === 'flat') {
+                            totalBunga = Math.round(pokok * (bungaPersen / 100));
+                            const porsiPokok = Math.round(pokok / jumlahCicilan);
+                            const porsiBunga = Math.round(totalBunga / jumlahCicilan);
+
+                            for(let i = 1; i <= jumlahCicilan; i++) {
+                                if(tenorJenis === 'harian') currDate = Utils.addDays(currDate, 1);
+                                else if(tenorJenis === 'mingguan') currDate = Utils.addDays(currDate, 7);
+                                else if(tenorJenis === 'bulanan') currDate = Utils.addMonths(currDate, 1);
+                                else if(tenorJenis === 'tahunan') currDate = Utils.addMonths(currDate, 12);
+                                else if(tenorJenis === 'custom') currDate = Utils.addDays(currDate, customDays);
+
+                                projectionList.push({
+                                    sequence: i,
+                                    dueDate: currDate,
+                                    principal: porsiPokok,
+                                    interest: porsiBunga,
+                                    total: porsiPokok + porsiBunga
+                                });
+                            }
+                        } 
+                        else if (jenisBunga === 'menurun') {
+                            let outstanding = pokok;
+                            const porsiPokok = Math.round(pokok / jumlahCicilan);
+                            totalBunga = 0;
+
+                            for(let i = 1; i <= jumlahCicilan; i++) {
+                                const porsiBunga = Math.round(outstanding * (bungaPersen / 100) / jumlahCicilan);
+                                totalBunga += porsiBunga;
+
+                                if(tenorJenis === 'harian') currDate = Utils.addDays(currDate, 1);
+                                else if(tenorJenis === 'mingguan') currDate = Utils.addDays(currDate, 7);
+                                else if(tenorJenis === 'bulanan') currDate = Utils.addMonths(currDate, 1);
+                                else if(tenorJenis === 'tahunan') currDate = Utils.addMonths(currDate, 12);
+                                else if(tenorJenis === 'custom') currDate = Utils.addDays(currDate, customDays);
+
+                                projectionList.push({
+                                    sequence: i,
+                                    dueDate: currDate,
+                                    principal: porsiPokok,
+                                    interest: porsiBunga,
+                                    total: porsiPokok + porsiBunga
+                                });
+
+                                outstanding = Math.max(0, outstanding - porsiPokok);
+                            }
+                        } 
+                        else {
+                            const porsiPokok = Math.round(pokok / jumlahCicilan);
+                            for(let i = 1; i <= jumlahCicilan; i++) {
+                                if(tenorJenis === 'harian') currDate = Utils.addDays(currDate, 1);
+                                else if(tenorJenis === 'mingguan') currDate = Utils.addDays(currDate, 7);
+                                else if(tenorJenis === 'bulanan') currDate = Utils.addMonths(currDate, 1);
+                                else if(tenorJenis === 'tahunan') currDate = Utils.addMonths(currDate, 12);
+                                else if(tenorJenis === 'custom') currDate = Utils.addDays(currDate, customDays);
+
+                                projectionList.push({
+                                    sequence: i,
+                                    dueDate: currDate,
+                                    principal: porsiPokok,
+                                    interest: 0,
+                                    total: porsiPokok
+                                });
+                            }
+                        }
+                    }
+
+                    const totalKewajiban = pokok + totalBunga;
+                    const angsuranRataRata = jumlahCicilan > 0 ? (totalKewajiban / jumlahCicilan) : 0;
+
+                    document.getElementById('res-dana-diterima').innerText = Utils.formatMoney(danaDiterima);
+                    document.getElementById('res-tot-potongan').innerText = Utils.formatMoney(totalPotongan);
+                    document.getElementById('res-tot-bunga').innerText = Utils.formatMoney(totalBunga);
+                    document.getElementById('res-tot-hutang').innerText = Utils.formatMoney(totalKewajiban);
+                    document.getElementById('res-angsuran').innerText = Utils.formatMoney(angsuranRataRata);
+                    document.getElementById('res-estimasi-selesai').innerText = projectionList.length > 0 ? Utils.formatDate(projectionList[projectionList.length - 1].dueDate) : '-';
+
+                    const pTbody = document.querySelector('#table-sim-projection tbody');
+                    pTbody.innerHTML = '';
+                    if (projectionList.length === 0) {
+                        pTbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Masukkan nominal pokok pinjaman</td></tr>`;
+                    } else {
+                        projectionList.forEach(item => {
+                            pTbody.innerHTML += `
+                                <tr class="hover:bg-slate-100 dark:hover:bg-dark-700/50">
+                                    <td class="p-2 text-center font-bold">${item.sequence}</td>
+                                    <td class="p-2">${Utils.formatDate(item.dueDate)}</td>
+                                    <td class="p-2 text-right">${Utils.formatMoney(item.principal)}</td>
+                                    <td class="p-2 text-right text-rose-500">${Utils.formatMoney(item.interest)}</td>
+                                    <td class="p-2 text-right font-bold text-indigo-600 dark:text-indigo-400">${Utils.formatMoney(item.total)}</td>
+                                </tr>
+                            `;
+                        });
+                    }
+
+                    App.state.tempProjection = projectionList;
+                    App.state.tempTotalInterest = totalBunga;
+                    App.state.tempTotalDebt = totalKewajiban;
+                },
+
+                saveNewDebt: () => {
+                    const kontrak = document.getElementById('sim-kontrak').value.trim();
+                    const krediturId = document.getElementById('sim-kreditur').value;
+                    const pokok = Utils.parseMoney(document.getElementById('sim-pokok').value) || 0;
+                    const jumlahCicilan = parseInt(document.getElementById('sim-jumlah-cicilan').value) || 1;
+
+                    if(!kontrak || !krediturId || pokok <= 0) {
+                        return App.ui.toast('Lengkapi No Kontrak, Kreditur, and Nominal Pokok (>0)', 'error');
+                    }
+
+                    const existingDebts = DB.get('debts');
+                    if(existingDebts.some(d => d.contractNo.toUpperCase() === kontrak.toUpperCase())) {
+                        return App.ui.toast('No Kontrak sudah terdaftar di sistem!', 'error');
+                    }
+
+                    App.debt.calculate(); 
+                    
+                    const debtId = Utils.generateId();
+                    const totalBunga = App.state.tempTotalInterest;
+                    const totalHutang = App.state.tempTotalDebt;
+
+                    const debtData = {
+                        id: debtId,
+                        contractNo: kontrak.toUpperCase(),
+                        creditorId: krediturId,
+                        applyDate: document.getElementById('sim-tgl-pengajuan').value,
+                        startDate: document.getElementById('sim-tgl-cair').value,
+                        principal: pokok,
+                        admin: Utils.parseMoney(document.getElementById('sim-pot-admin').value) || 0,
+                        provisi: Utils.parseMoney(document.getElementById('sim-pot-provisi').value) || 0,
+                        asuransi: Utils.parseMoney(document.getElementById('sim-pot-asuransi').value) || 0,
+                        tabungan: Utils.parseMoney(document.getElementById('sim-pot-tabungan').value) || 0,
+                        interestType: document.getElementById('sim-jenis-bunga').value,
+                        interestRate: parseFloat(document.getElementById('sim-bunga-persen').value) || 0,
+                        tenorType: document.getElementById('sim-tenor-jenis').value,
+                        customDays: parseInt(document.getElementById('sim-tenor-custom-hari').value) || 14,
+                        installmentCount: jumlahCicilan,
+                        totalInterest: totalBunga,
+                        totalDebt: totalHutang,
+                        paidAmount: 0,
+                        status: 'ACTIVE',
+                        createdAt: new Date().toISOString()
+                    };
+
+                    let debts = DB.get('debts');
+                    debts.push(debtData);
+                    DB.set('debts', debts);
+
+                    let installments = DB.get('installments');
+                    App.state.tempProjection.forEach(item => {
+                        installments.push({
+                            id: Utils.generateId(),
+                            debtId: debtId,
+                            sequence: item.sequence,
+                            dueDate: item.dueDate,
+                            amount: item.total,
+                            principalPortion: item.principal,
+                            interestPortion: item.interest,
+                            status: 'PENDING',
+                            paidDate: null,
+                            notes: ''
+                        });
+                    });
+                    DB.set('installments', installments);
+
+                    App.ui.toast('Kontrak & Jadwal Angsuran disimpan!');
+                    
+                    document.getElementById('sim-kontrak').value = '';
+                    document.getElementById('sim-pokok').value = '0';
+                    document.getElementById('sim-pot-admin').value = '0';
+                    document.getElementById('sim-pot-provisi').value = '0';
+                    document.getElementById('sim-pot-asuransi').value = '0';
+                    document.getElementById('sim-pot-tabungan').value = '0';
+                    document.getElementById('sim-bunga-persen').value = '0';
+                    document.getElementById('sim-jumlah-cicilan').value = '1';
+                    document.getElementById('sim-jumlah-cicilan-range').value = '1';
+                    
+                    App.router.navigate('debts');
+                }
+            },
+
+            billing: {
+                handleActionTypeChange: () => {
+                    const type = document.getElementById('pay-status-type').value;
+                    const reasonGroup = document.getElementById('pay-absen-reason-group');
+                    if(type === 'ABSEN') reasonGroup.classList.remove('hidden');
+                    else reasonGroup.classList.add('hidden');
+                },
+                openPaymentModal: (instId, debtId) => {
+                    const inst = DB.get('installments').find(i => i.id === instId);
+                    const debt = DB.get('debts').find(d => d.id === debtId);
+
+                    if(inst && debt) {
+                        document.getElementById('pay-inst-id').value = inst.id;
+                        document.getElementById('pay-debt-id').value = debt.id;
+                        document.getElementById('pay-kontrak-txt').innerText = debt.contractNo;
+                        document.getElementById('pay-cicilan-txt').innerText = inst.sequence + ' dari ' + debt.installmentCount;
+                        document.getElementById('pay-amount-txt').innerText = Utils.formatMoney(inst.amount);
+                        document.getElementById('pay-date').value = Utils.getToday();
+                        
+                        document.getElementById('pay-status-type').value = 'PAID';
+                        document.getElementById('pay-absen-reason-group').classList.add('hidden');
+                        
+                        App.ui.showModal('modal-payment');
+                    }
+                },
+                processPayment: () => {
+                    const instId = document.getElementById('pay-inst-id').value;
+                    const debtId = document.getElementById('pay-debt-id').value;
+                    const payDate = document.getElementById('pay-date').value;
+                    const actionType = document.getElementById('pay-status-type').value;
+
+                    if(!payDate) return App.ui.toast('Tanggal tindakan wajib diisi!', 'error');
+
+                    let installments = DB.get('installments');
+                    let debts = DB.get('debts');
+                    let payments = DB.get('payments');
+
+                    const instIdx = installments.findIndex(i => i.id === instId);
+                    const targetInst = installments[instIdx];
+
+                    if(actionType === 'PAID') {
+                        installments[instIdx].status = 'PAID';
+                        installments[instIdx].paidDate = payDate;
+                        installments[instIdx].notes = 'Lunas';
+
+                        const debtIdx = debts.findIndex(d => d.id === debtId);
+                        debts[debtIdx].paidAmount += targetInst.amount;
+
+                        if(debts[debtIdx].paidAmount >= debts[debtIdx].totalDebt - 10) { 
+                            debts[debtIdx].status = 'PAID';
+                        }
+
+                        payments.push({
+                            id: Utils.generateId(),
+                            debtId: debtId,
+                            installmentId: instId,
+                            amount: targetInst.amount,
+                            date: payDate
+                        });
+                        
+                        App.ui.toast('Pembayaran tercatat sukses!');
+                    } 
+                    else if(actionType === 'ABSEN') {
+                        const reason = document.getElementById('pay-absen-reason').value;
+                        
+                        installments[instIdx].status = 'ABSEN';
+                        installments[instIdx].paidDate = payDate;
+                        installments[instIdx].notes = reason;
+
+                        const debtIdx = debts.findIndex(d => d.id === debtId);
+                        const currentDebt = debts[debtIdx];
+                        
+                        currentDebt.installmentCount += 1;
+                        currentDebt.totalDebt += targetInst.amount; 
+                        
+                        const debtAllInst = installments.filter(i => i.debtId === debtId).sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
+                        const lastInst = debtAllInst[debtAllInst.length - 1];
+                        
+                        let nextDueDate = lastInst.dueDate;
+                        if(currentDebt.tenorType === 'harian') nextDueDate = Utils.addDays(nextDueDate, 1);
+                        else if(currentDebt.tenorType === 'mingguan') nextDueDate = Utils.addDays(nextDueDate, 7);
+                        else if(currentDebt.tenorType === 'bulanan') nextDueDate = Utils.addMonths(nextDueDate, 1);
+                        else if(currentDebt.tenorType === 'tahunan') nextDueDate = Utils.addMonths(nextDueDate, 12);
+                        else if(currentDebt.tenorType === 'custom') nextDueDate = Utils.addDays(nextDueDate, currentDebt.customDays || 14);
+
+                        installments.push({
+                            id: Utils.generateId(),
+                            debtId: debtId,
+                            sequence: currentDebt.installmentCount,
+                            dueDate: nextDueDate,
+                            amount: targetInst.amount,
+                            principalPortion: targetInst.principalPortion,
+                            interestPortion: targetInst.interestPortion,
+                            status: 'PENDING',
+                            paidDate: null,
+                            notes: `Reschedule penundaan ke-${targetInst.sequence} (${reason})`
+                        });
+
+                        App.ui.toast('Status Absen tersimpan. Tenor otomatis bertambah ke belakang!');
+                    }
+
+                    DB.set('installments', installments);
+                    DB.set('debts', debts);
+                    DB.set('payments', payments);
+
+                    App.ui.hideModal('modal-payment');
+                    
+                    if(App.state.currentView === 'billing') App.ui.renderBilling();
+                    if(App.state.currentView === 'dashboard') App.ui.renderDashboard();
+                }
+            },
+
+            reports: {
+                switchSubTab: (tab) => {
+                    App.state.currentReportSubTab = tab;
+                    const btnContract = document.getElementById('btn-report-contract');
+                    const btnCreditor = document.getElementById('btn-report-creditor');
+                    const subContract = document.getElementById('sub-report-contract');
+                    const subCreditor = document.getElementById('sub-report-creditor');
+
+                    if(tab === 'contract') {
+                        btnContract.className = 'p-4 rounded-xl text-center font-bold text-sm bg-indigo-600 text-white shadow-md transition-all flex items-center justify-center gap-2';
+                        btnCreditor.className = 'p-4 rounded-xl text-center font-bold text-sm bg-white dark:bg-dark-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2';
+                        subContract.classList.remove('hidden');
+                        subCreditor.classList.add('hidden');
+                    } else {
+                        btnCreditor.className = 'p-4 rounded-xl text-center font-bold text-sm bg-indigo-600 text-white shadow-md transition-all flex items-center justify-center gap-2';
+                        btnContract.className = 'p-4 rounded-xl text-center font-bold text-sm bg-white dark:bg-dark-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2';
+                        subCreditor.classList.remove('hidden');
+                        subContract.classList.add('hidden');
+                    }
+                    App.reports.render();
+                },
+                render: () => {
+                    const debts = DB.get('debts');
+                    const creditors = DB.get('creditors');
+
+                    if (App.state.currentReportSubTab === 'contract') {
+                        const tbody = document.querySelector('#table-report-by-contract tbody');
+                        tbody.innerHTML = '';
+                        
+                        if(debts.length === 0) {
+                            tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Belum ada kontrak yang terdaftar</td></tr>`;
+                            return;
+                        }
+
+                        debts.forEach(d => {
+                            const cred = creditors.find(c => c.id === d.creditorId);
+                            const percent = d.totalDebt > 0 ? Math.round((d.paidAmount / d.totalDebt) * 100) : 0;
+                            const remaining = Math.max(0, d.totalDebt - d.paidAmount);
+
+                            tbody.innerHTML += `
+                                <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/40">
+                                    <td class="p-3 font-bold text-indigo-600 dark:text-indigo-400 select-all">${d.contractNo}</td>
+                                    <td class="p-3 font-semibold text-slate-800 dark:text-white">${cred ? cred.name : 'Unknown'}</td>
+                                    <td class="p-3 text-right">${Utils.formatMoney(d.principal)}</td>
+                                    <td class="p-3 text-right font-bold text-rose-500">${Utils.formatMoney(d.totalDebt)}</td>
+                                    <td class="p-3 text-right font-bold text-emerald-500">${Utils.formatMoney(d.paidAmount)}</td>
+                                    <td class="p-3 text-right font-bold text-amber-500">${Utils.formatMoney(remaining)}</td>
+                                    <td class="p-3 text-center">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <div class="w-16 bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                                <div class="bg-indigo-600 h-full" style="width: ${percent}%"></div>
+                                            </div>
+                                            <span class="font-bold text-[10px]">${percent}%</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-3 text-center">
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${d.status === 'PAID' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400' : 'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400'}">${d.status}</span>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        const tbody = document.querySelector('#table-report-by-creditor tbody');
+                        tbody.innerHTML = '';
+                        
+                        if(creditors.length === 0) {
+                            tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">Tidak ada data kreditur terdaftar</td></tr>`;
+                            return;
+                        }
+
+                        creditors.forEach(c => {
+                            const cDebts = debts.filter(d => d.creditorId === c.id);
+                            const totalPrincipal = cDebts.reduce((sum, d) => sum + d.principal, 0);
+                            const totalDebt = cDebts.reduce((sum, d) => sum + d.totalDebt, 0);
+                            const totalPaid = cDebts.reduce((sum, d) => sum + d.paidAmount, 0);
+                            const totalRemaining = Math.max(0, totalDebt - totalPaid);
+                            const activeCount = cDebts.filter(d => d.status === 'ACTIVE').length;
+
+                            const sisaRasio = totalDebt > 0 ? Math.round((totalRemaining / totalDebt) * 100) : 0;
+
+                            tbody.innerHTML += `
+                                <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/40">
+                                    <td class="p-3">
+                                        <p class="font-bold text-slate-800 dark:text-white leading-tight">${c.name}</p>
+                                        <p class="text-[10px] text-slate-400 font-semibold">${c.company || 'Personal'}</p>
+                                    </td>
+                                    <td class="p-3 text-center font-bold">${activeCount} Kontrak</td>
+                                    <td class="p-3 text-right">${Utils.formatMoney(totalPrincipal)}</td>
+                                    <td class="p-3 text-right font-bold text-rose-500">${Utils.formatMoney(totalDebt)}</td>
+                                    <td class="p-3 text-right font-bold text-emerald-500">${Utils.formatMoney(totalPaid)}</td>
+                                    <td class="p-3 text-right font-bold text-amber-500">${Utils.formatMoney(totalRemaining)}</td>
+                                    <td class="p-3 text-center">
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${sisaRasio > 50 ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-800'}">${sisaRasio}% Tagihan</span>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    }
+                },
+                export: (type) => {
+                    const data = DB.get(type);
+                    if(!data || data.length === 0) return App.ui.toast('Tidak ada data ekspor.', 'error');
+
+                    const keys = Object.keys(data[0]);
+                    const csvContent = [
+                        keys.join(','),
+                        ...data.map(row => keys.map(k => `"${String(row[k]).replace(/"/g, '""')}"`).join(','))
+                    ].join('\n');
+
+                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `BIONE_EXPORT_${type.toUpperCase()}_${Utils.getToday()}.csv`;
+                    link.click();
+                    App.ui.toast(`Berhasil mengunduh Laporan ${type}!`);
+                }
+            },
+
+            maintenance: {
+                exportJSON: () => {
+                    let isLicActivated = 'false';
+                    let isLicStart = Date.now().toString();
+                    try {
+                        isLicActivated = localStorage.getItem('bione_lic_activated');
+                        isLicStart = localStorage.getItem('bione_lic_start');
+                    } catch(e) {
+                        isLicActivated = MemoryDB['bione_lic_activated'];
+                        isLicStart = MemoryDB['bione_lic_start'];
+                    }
+
+                    const payload = {
+                        users: DB.get('users'),
+                        creditors: DB.get('creditors'),
+                        debts: DB.get('debts'),
+                        installments: DB.get('installments'),
+                        payments: DB.get('payments'),
+                        lic_activated: isLicActivated,
+                        lic_start: isLicStart
+                    };
+
+                    const str = JSON.stringify(payload, null, 2);
+                    const blob = new Blob([str], { type: 'application/json' });
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `BIONE_BACKUP_MASTER_${Utils.getToday()}.json`;
+                    link.click();
+                    App.ui.toast('Database berhasil di-backup!');
+                },
+                importJSON: (input) => {
+                    const file = input.files[0];
+                    if(!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const parsed = JSON.parse(e.target.result);
+                            if(parsed.users && parsed.creditors && parsed.debts && parsed.installments && parsed.payments) {
+                                App.ui.confirm(
+                                    'Timpa Database Lama?', 
+                                    'Tindakan pemulihan ini akan menggantikan seluruh data berjalan Anda saat ini.',
+                                    () => {
+                                        DB.set('users', parsed.users);
+                                        DB.set('creditors', parsed.creditors);
+                                        DB.set('debts', parsed.debts);
+                                        DB.set('installments', parsed.installments);
+                                        DB.set('payments', parsed.payments);
+                                        
+                                        try {
+                                            if(parsed.lic_activated) localStorage.setItem('bione_lic_activated', parsed.lic_activated);
+                                            if(parsed.lic_start) localStorage.setItem('bione_lic_start', parsed.lic_start);
+                                        } catch(err) {
+                                            if(parsed.lic_activated) MemoryDB['bione_lic_activated'] = parsed.lic_activated;
+                                            if(parsed.lic_start) MemoryDB['bione_lic_start'] = parsed.lic_start;
+                                        }
+
+                                        App.ui.toast('Database Berhasil Dipulihkan!');
+                                        setTimeout(() => window.location.reload(), 1000);
+                                    }
+                                );
+                            } else {
+                                App.ui.toast('Format berkas cadangan tidak valid!', 'error');
+                            }
+                        } catch (err) {
+                            App.ui.toast('Gagal memproses berkas JSON!', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                },
+                factoryReset: () => {
+                    App.ui.confirm(
+                        'RESET TOTAL DATA?', 
+                        'Semua data kreditur, kontrak, dan cicilan akan lenyap selamanya tanpa sisa.',
+                        () => {
+                            try {
+                                localStorage.clear();
+                            } catch(e) {}
+                            sessionStorage.clear();
+                            App.ui.toast('Database dibersihkan!');
+                            setTimeout(() => window.location.reload(), 1000);
+                        }
+                    );
+                }
+            },
+
+            ui: {
+                toggleSidebar: (force) => {
+                    const sb = document.getElementById('sidebar');
+                    const overlay = document.getElementById('sidebar-overlay');
+                    if(force !== undefined) {
+                        if(force) { sb.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); }
+                        else { sb.classList.add('-translate-x-full'); overlay.classList.add('hidden'); }
+                    } else {
+                        sb.classList.toggle('-translate-x-full');
+                        overlay.classList.toggle('hidden');
+                    }
+                },
+                toggleDarkMode: () => {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        document.documentElement.classList.add('light');
+                        try {
+                            localStorage.setItem('bione_theme', 'light');
+                        } catch(e) {}
+                    } else {
+                        document.documentElement.classList.remove('light');
+                        document.documentElement.classList.add('dark');
+                        try {
+                            localStorage.setItem('bione_theme', 'dark');
+                        } catch(e) {}
+                    }
+                },
+                showModal: (id) => {
+                    document.getElementById(id).classList.add('active');
+                    if(id === 'modal-creditor') {
+                        document.getElementById('form-creditor').reset();
+                        document.getElementById('cred-id').value = '';
+                    }
+                },
+                hideModal: (id) => document.getElementById(id).classList.remove('active'),
+                
+                toast: (msg, type='success') => {
+                    const container = document.getElementById('toast-container');
+                    const t = document.createElement('div');
+                    const bgClass = type === 'error' ? 'bg-rose-600' : 'bg-slate-900 dark:bg-indigo-950 border border-indigo-500/20';
+                    const icon = type === 'error' ? 'ph-warning-circle' : 'ph-check-circle';
+                    
+                    t.className = `toast flex items-center gap-3 px-4 py-3 rounded-xl text-white shadow-xl ${bgClass}`;
+                    t.innerHTML = `<i class="ph-fill ${icon} text-xl"></i> <span class="font-semibold text-xs">${msg}</span>`;
+                    container.appendChild(t);
+                    setTimeout(() => { t.style.opacity = '0'; setTimeout(()=>t.remove(),350); }, 3000);
+                },
+
+                confirm: (title, message, onConfirm) => {
+                    document.getElementById('dialog-title').innerText = title;
+                    document.getElementById('dialog-message').innerText = message;
+                    
+                    const modal = document.getElementById('modal-custom-dialog');
+                    modal.classList.add('active');
+
+                    const btnConfirm = document.getElementById('btn-dialog-confirm');
+                    const btnCancel = document.getElementById('btn-dialog-cancel');
+
+                    const cleanListeners = () => {
+                        btnConfirm.replaceWith(btnConfirm.cloneNode(true));
+                        btnCancel.replaceWith(btnCancel.cloneNode(true));
+                    };
+
+                    document.getElementById('btn-dialog-confirm').onclick = () => {
+                        modal.classList.remove('active');
+                        cleanListeners();
+                        onConfirm();
+                    };
+
+                    document.getElementById('btn-dialog-cancel').onclick = () => {
+                        modal.classList.remove('active');
+                        cleanListeners();
+                    };
+                },
+
+                populateCreditorSelect: () => {
+                    const select = document.getElementById('sim-kreditur');
+                    select.innerHTML = '<option value="">-- Pilih Instansi / Kreditur Pinjaman --</option>';
+                    DB.get('creditors').forEach(c => {
+                        select.innerHTML += `<option value="${c.id}">${c.name} (${c.company || 'Personal'})</option>`;
+                    });
+                },
+
+                populateBillingFilters: () => {
+                    const debts = DB.get('debts');
+                    const creditors = DB.get('creditors');
+                    
+                    const fContract = document.getElementById('filter-billing-contract');
+                    const fCreditor = document.getElementById('filter-billing-creditor');
+                    
+                    fContract.innerHTML = '<option value="all">Semua Nomor Kontrak</option>';
+                    debts.forEach(d => {
+                        fContract.innerHTML += `<option value="${d.id}">${d.contractNo}</option>`;
+                    });
+                    
+                    fCreditor.innerHTML = '<option value="all">Semua Penerima / Kreditur</option>';
+                    creditors.forEach(c => {
+                        fCreditor.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                    });
+                },
+
+                renderCreditors: () => {
+                    const creditors = DB.get('creditors');
+                    const search = document.getElementById('search-creditor').value.toLowerCase();
+                    const tbody = document.querySelector('#table-creditors tbody');
+                    tbody.innerHTML = '';
+
+                    const filtered = creditors.filter(c => c.name.toLowerCase().includes(search) || (c.company && c.company.toLowerCase().includes(search)));
+
+                    if(filtered.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400">Tidak ditemukan data kreditur.</td></tr>`;
+                        return;
+                    }
+
+                    filtered.forEach(c => {
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/40 transition-colors">
+                                <td class="p-4 font-bold text-slate-800 dark:text-white">${c.name}</td>
+                                <td class="p-4 font-semibold">${c.company || '-'}</td>
+                                <td class="p-4 font-mono">${c.phone || '-'}</td>
+                                <td class="p-4">
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-400">${c.category}</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button class="w-8 h-8 rounded-lg inline-flex items-center justify-center text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-colors" onclick="App.creditor.delete('${c.id}')">
+                                        <i class="ph-bold ph-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                },
+
+                renderDebts: () => {
+                    const debts = DB.get('debts');
+                    const creditors = DB.get('creditors');
+                    const search = document.getElementById('search-debt').value.toLowerCase();
+                    const tbody = document.querySelector('#table-debts tbody');
+                    tbody.innerHTML = '';
+
+                    const filtered = debts.filter(d => d.contractNo.toLowerCase().includes(search));
+
+                    if(filtered.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400">Belum ada kontrak tercatat di database</td></tr>`;
+                        return;
+                    }
+
+                    filtered.forEach(d => {
+                        const cred = creditors.find(c => c.id === d.creditorId);
+                        const totalDebt = parseFloat(d.totalDebt) || 0;
+                        const paidAmt = parseFloat(d.paidAmount) || 0;
+                        const principal = parseFloat(d.principal) || 0;
+
+                        const sisaTotal = Math.max(0, totalDebt - paidAmt);
+                        const sisaPokok = d.totalDebt > 0 ? Math.round(sisaTotal * (principal / totalDebt)) : sisaTotal;
+                        const sisaBunga = Math.max(0, sisaTotal - sisaPokok);
+                        
+                        const badgeClass = d.status === 'PAID' ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400' : 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400';
+
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/40 transition-colors cursor-pointer" onclick="App.ui.showDebtDetail('${d.id}')">
+                                <td class="p-4 font-black text-indigo-600 dark:text-indigo-400 font-mono">${d.contractNo}</td>
+                                <td class="p-4 font-bold text-slate-800 dark:text-slate-200">${cred ? cred.name : 'Unknown'}</td>
+                                <td class="p-4 text-right font-mono">${Utils.formatMoney(sisaPokok)}</td>
+                                <td class="p-4 text-right font-mono text-rose-500">${Utils.formatMoney(sisaBunga)}</td>
+                                <td class="p-4 text-right font-mono font-black text-rose-600 dark:text-rose-400">${Utils.formatMoney(sisaTotal)}</td>
+                                <td class="p-4 text-center">
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${badgeClass}">${d.status}</span>
+                                </td>
+                                <td class="p-4 text-right">
+                                    <button class="px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-slate-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:bg-indigo-50 dark:hover:bg-slate-800/60 transition-colors">Detail Plan</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                },
+
+                showDebtDetail: (debtId) => {
+                    const debt = DB.get('debts').find(d => d.id === debtId);
+                    const installments = DB.get('installments').filter(i => i.debtId === debtId).sort((a,b)=>a.sequence - b.sequence);
+                    if(!debt) return;
+
+                    const totalDebt = parseFloat(debt.totalDebt) || 0;
+                    const paidAmount = parseFloat(debt.paidAmount) || 0;
+
+                    document.getElementById('det-kontrak-no').innerText = debt.contractNo;
+                    document.getElementById('det-pokok').innerText = Utils.formatMoney(debt.principal);
+                    document.getElementById('det-total').innerText = Utils.formatMoney(totalDebt);
+                    document.getElementById('det-dibayar').innerText = Utils.formatMoney(paidAmount);
+                    document.getElementById('det-sisa').innerText = Utils.formatMoney(totalDebt - paidAmount);
+
+                    const tbody = document.querySelector('#table-debt-detail-inst tbody');
+                    tbody.innerHTML = '';
+                    
+                    const today = new Date(Utils.getToday());
+                    
+                    installments.forEach(i => {
+                        const isOverdue = new Date(i.dueDate) < today && i.status === 'PENDING';
+                        
+                        let badgeHtml = '';
+                        if(i.status === 'PAID') {
+                            badgeHtml = '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">Lunas</span>';
+                        } else if(i.status === 'ABSEN') {
+                            badgeHtml = `<span class="px-2 py-0.5 bg-slate-200 text-slate-700 rounded font-mono text-[9px] block max-w-[140px] truncate" title="${i.notes}">Absen: ${i.notes}</span>`;
+                        } else if(isOverdue) {
+                            badgeHtml = '<span class="px-2 py-0.5 bg-red-100 text-red-800 rounded font-bold text-[10px] animate-pulse">Telat</span>';
+                        } else {
+                            badgeHtml = '<span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">Pending</span>';
+                        }
+                        
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/30">
+                                <td class="p-3 text-center font-bold">${i.sequence}</td>
+                                <td class="p-3 ${isOverdue ? 'text-red-500 font-bold' : ''}">${Utils.formatDate(i.dueDate)}</td>
+                                <td class="p-3 text-right">${Utils.formatMoney(i.principalPortion)}</td>
+                                <td class="p-3 text-right text-rose-500">${Utils.formatMoney(i.interestPortion)}</td>
+                                <td class="p-3 text-right font-black text-indigo-600 dark:text-indigo-400">${Utils.formatMoney(i.amount)}</td>
+                                <td class="p-3 text-center">${badgeHtml}</td>
+                            </tr>
+                        `;
+                    });
+
+                    App.ui.showModal('modal-debt-detail');
+                },
+
+                renderBilling: () => {
+                    const installments = DB.get('installments');
+                    const debts = DB.get('debts');
+                    const creditors = DB.get('creditors');
+                    
+                    const filterStatus = document.getElementById('filter-billing-status').value;
+                    const filterMonth = document.getElementById('filter-billing-month').value;
+                    const filterContractId = document.getElementById('filter-billing-contract').value;
+                    const filterCreditorId = document.getElementById('filter-billing-creditor').value;
+                    
+                    const tbody = document.querySelector('#table-billing tbody');
+                    tbody.innerHTML = '';
+
+                    let data = installments;
+
+                    if(filterStatus === 'pending') data = data.filter(i => i.status === 'PENDING');
+                    if(filterStatus === 'paid') data = data.filter(i => i.status === 'PAID');
+                    if(filterStatus === 'absen') data = data.filter(i => i.status === 'ABSEN');
+                    if(filterMonth) data = data.filter(i => i.dueDate.startsWith(filterMonth));
+                    if(filterContractId !== 'all') data = data.filter(i => i.debtId === filterContractId);
+
+                    data.sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+                    const today = new Date(Utils.getToday());
+                    let hasRows = false;
+
+                    data.forEach(i => {
+                        const debt = debts.find(d => d.id === i.debtId);
+                        if(!debt) return;
+                        
+                        if(filterCreditorId !== 'all' && debt.creditorId !== filterCreditorId) return;
+
+                        hasRows = true;
+                        const cred = creditors.find(c => c.id === debt.creditorId);
+                        const isOverdue = new Date(i.dueDate) < today && i.status === 'PENDING';
+                        
+                        let statusHtml = '';
+                        if(i.status === 'PAID') {
+                            statusHtml = '<span class="inline-flex items-center gap-1.5 text-emerald-600 font-bold text-xs"><i class="ph-fill ph-check-circle"></i> Lunas</span>';
+                        } else if(i.status === 'ABSEN') {
+                            statusHtml = `<span class="inline-flex flex-col text-slate-500 font-bold text-xs" title="${i.notes}"><span class="text-slate-400 font-bold"><i class="ph-fill ph-prohibit"></i> Absen</span><span class="text-[10px] font-mono font-normal max-w-[130px] truncate">${i.notes}</span></span>`;
+                        } else if(isOverdue) {
+                            statusHtml = '<span class="inline-flex items-center gap-1.5 text-red-600 font-bold text-xs animate-pulse"><i class="ph-fill ph-warning-circle"></i> Terlambat</span>';
+                        } else {
+                            statusHtml = '<span class="inline-flex items-center gap-1.5 text-amber-500 font-bold text-xs"><i class="ph-fill ph-clock"></i> Tunggu</span>';
+                        }
+
+                        let actionBtn = i.status === 'PENDING' ? 
+                            `<button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm" onclick="App.billing.openPaymentModal('${i.id}', '${debt.id}')">Tindakan</button>` : 
+                            `<span class="text-xs text-slate-400 font-mono">${Utils.formatDate(i.paidDate)}</span>`;
+
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/40 transition-colors">
+                                <td class="p-4 ${isOverdue ? 'text-red-500 font-bold' : ''}">${Utils.formatDate(i.dueDate)}</td>
+                                <td class="p-4 font-black text-indigo-600 dark:text-indigo-400 font-mono">${debt.contractNo}</td>
+                                <td class="p-4 font-bold text-slate-800 dark:text-slate-300">${cred ? cred.name : 'Unknown'}</td>
+                                <td class="p-4 text-center font-bold">${i.sequence}/${debt.installmentCount}</td>
+                                <td class="p-4 text-right">${Utils.formatMoney(i.principalPortion)}</td>
+                                <td class="p-4 text-right text-rose-500">${Utils.formatMoney(i.interestPortion)}</td>
+                                <td class="p-4 text-right font-black text-slate-900 dark:text-white">${Utils.formatMoney(i.amount)}</td>
+                                <td class="p-4 text-center">${statusHtml}</td>
+                                <td class="p-4 text-center">${actionBtn}</td>
+                            </tr>
+                        `;
+                    });
+
+                    if(!hasRows) {
+                        tbody.innerHTML = `<tr><td colspan="9" class="p-8 text-center text-slate-400">Tidak ada jadwal tagihan yang cocok dengan filter</td></tr>`;
+                    }
+                },
+
+                renderDashboard: () => {
+                    const debts = DB.get('debts');
+                    const installments = DB.get('installments');
+                    const creditors = DB.get('creditors');
+                    const currentMonthStr = Utils.getToday().substring(0, 7);
+                    const today = new Date(Utils.getToday());
+
+                    let totalSisa = 0, totalBayar = 0, hutangAktif = 0;
+                    let tagihanBulanIni = 0, totTabungan = 0, totAdmin = 0, totBunga = 0;
+
+                    debts.forEach(d => {
+                        const debtTotal = parseFloat(d.totalDebt) || 0;
+                        const paid = parseFloat(d.paidAmount) || 0;
+                        
+                        totalSisa += (debtTotal - paid);
+                        totalBayar += paid;
+                        
+                        totTabungan += parseFloat(d.tabungan) || 0;
+                        totAdmin += (parseFloat(d.admin) || 0) + (parseFloat(d.provisi) || 0) + (parseFloat(d.asuransi) || 0);
+                        
+                        if(d.status === 'ACTIVE') hutangAktif++;
+                    });
+
+                    installments.forEach(i => {
+                        const amt = parseFloat(i.amount) || 0;
+                        const intPortion = parseFloat(i.interestPortion) || 0;
+
+                        if(i.dueDate.startsWith(currentMonthStr) && i.status === 'PENDING') {
+                            tagihanBulanIni += amt;
+                        }
+                        if(i.status === 'PAID') {
+                            totBunga += intPortion;
+                        }
+                    });
+
+                    document.getElementById('kpi-sisa-hutang').innerText = Utils.formatMoney(totalSisa);
+                    document.getElementById('kpi-tagihan-bulan').innerText = Utils.formatMoney(tagihanBulanIni);
+                    document.getElementById('kpi-total-bayar').innerText = Utils.formatMoney(totalBayar);
+                    document.getElementById('kpi-hutang-aktif').innerText = hutangAktif;
+
+                    document.getElementById('dash-tabungan').innerText = Utils.formatMoney(totTabungan);
+                    document.getElementById('dash-admin').innerText = Utils.formatMoney(totAdmin);
+                    document.getElementById('dash-bunga').innerText = Utils.formatMoney(totBunga);
+
+                    let upcoming = installments.filter(i => i.status === 'PENDING')
+                                               .sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate))
+                                               .slice(0, 5);
+                    
+                    const dashTbody = document.querySelector('#table-dash-upcoming tbody');
+                    dashTbody.innerHTML = '';
+                    if(upcoming.length === 0) {
+                        dashTbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-emerald-500 font-bold">Semua jadwal tagihan berjalan lunas! 🎉</td></tr>';
+                    } else {
+                        upcoming.forEach(i => {
+                            const debt = debts.find(d => d.id === i.debtId);
+                            const cred = debt ? creditors.find(c => c.id === debt.creditorId) : null;
+                            const isOverdue = new Date(i.dueDate) < today;
+                            
+                            dashTbody.innerHTML += `
+                                <tr class="hover:bg-slate-50 dark:hover:bg-dark-800/40">
+                                    <td class="py-3 pr-2"><span class="text-indigo-600 dark:text-indigo-400 font-black font-mono">${debt ? debt.contractNo : '-'}</span></td>
+                                    <td class="py-3 px-2 font-semibold text-slate-800 dark:text-white">${cred ? cred.name : 'Unknown'}</td>
+                                    <td class="py-3 px-2 ${isOverdue ? 'text-red-500 font-bold' : ''}">${Utils.formatDate(i.dueDate)}</td>
+                                    <td class="py-3 px-2 font-black text-right text-slate-900 dark:text-white">${Utils.formatMoney(i.amount)}</td>
+                                    <td class="py-3 pl-2 text-center text-xs">
+                                        ${isOverdue 
+                                            ? '<span class="px-2 py-0.5 bg-red-100 text-red-800 rounded font-bold text-[10px] animate-pulse">Telat</span>' 
+                                            : '<span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">Tunggu</span>'}
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    }
+                }
+            }
+        };
+
+        window.App = App;
+        document.addEventListener('DOMContentLoaded', App.init);
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                App.router.navigate(e.currentTarget.getAttribute('data-target'));
+            });
+        });
+    </script>
+</body>
+</html>
